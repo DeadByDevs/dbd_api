@@ -3,22 +3,34 @@ from typing import Union
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-app = FastAPI()
+import fileHandler
 
-class Item(BaseModel):
-    name: str
-    price: float
-    is_offer: Union[bool, None] = None
+app = FastAPI()
 
 @app.get("/")
 async def read_root():
-    return {"Hello": "World"}
+    return {"DBD api": "OK"}
 
+@app.get("/map")
+async def read_map():
+    return fileHandler.getRandomMap('./assets/maps.json')
 
-@app.get("/items/{item_id}")
-async def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+@app.get("/perk/{characterType}/set")
+# get a set of perks for a killer or a survivor
+async def read_perks(characterType):
+    if characterType == 'survivor':
+        return fileHandler.randomMultipleElementsFile('./assets/perks.json', 4, characterType)
+    elif characterType == 'killer':
+        return fileHandler.randomMultipleElementsFile('./assets/perks.json', 4, characterType)
+    else:
+        return "Error : Invalid character type"
 
-@app.put("/items/{item_id}")
-def update_item(item_id: int, item: Item):
-    return {"item_name": item.name, "item_id": item_id}
+@app.get("/perk/{characterType}/single")
+# get a single perk for a killer or a survivor
+async def read_perk(characterType):
+    if characterType == 'survivor':
+        return fileHandler.randomElementFile('./assets/perks.json', characterType)
+    elif characterType == 'killer':
+        return fileHandler.randomElementFile('./assets/perks.json', characterType)
+    else:
+        return "Error : Invalid character type"
