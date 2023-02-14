@@ -9,10 +9,13 @@ python-dotenv, fastapi, uvicorn
 - create api-env
     - python3 -m venv api-env
 - activate virtual env:
-    - api-env/bin/activate
+    - source api-env/bin/activate
 - install in env
     - pip install fastapi && pip install "uvicorn[standard]"
 
 ## how to run the app : 
 
-python3 main.py
+- activate virtual env if not already in it:
+    - source api-env/bin/activate
+- run app uisng uvicorn:
+    - uvicorn main:app --reload

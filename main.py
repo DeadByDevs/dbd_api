@@ -29,8 +29,8 @@ async def read_perks(characterType):
 # get a single perk for a killer or a survivor
 async def read_perk(characterType):
     if characterType == 'survivor':
-        return fileHandler.randomElementFile('./assets/perks.json', characterType)
+        return fileHandler.randomMultipleElementsFile('./assets/perks.json', 1, characterType)
     elif characterType == 'killer':
-        return fileHandler.randomElementFile('./assets/perks.json', characterType)
+        return fileHandler.randomMultipleElementsFile('./assets/perks.json', 1, characterType)
     else:
         return "Error : Invalid character type"

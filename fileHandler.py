@@ -3,8 +3,7 @@ import random
 
 def getFileData(filePath):
     with open(filePath) as dataFile:
-        data = json.load(dataFile)
-    return data
+        return json.load(dataFile)
 
 def getRandomMap(filePath):
     data = getFileData(filePath)
