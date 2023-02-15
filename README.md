@@ -20,6 +20,6 @@ python-dotenv, fastapi, uvicorn
 ## how to run the app :
 
 - activate virtual env if not already in it:
-  - source api-env/bin/activate
+  - source bot-env/bin/activate
 - run app using uvicorn:
   - uvicorn main:app --reload
