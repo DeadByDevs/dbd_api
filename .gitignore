@@ -2,3 +2,4 @@ api-env
 .env
 *.pyc
 __pycache__
+.DS_store
