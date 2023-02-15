@@ -2,7 +2,9 @@
 
 ## required library :
 
-python-dotenv, fastapi, uvicorn
+python-dotenv
+fastapi
+uvicorn
 
 ## how to set up the environment :
 
