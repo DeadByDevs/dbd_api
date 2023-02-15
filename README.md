@@ -17,7 +17,11 @@ uvicorn
   - source api-env/bin/activate
 
 - install in env
-  - pip install fastapi && pip install "uvicorn[standard]"
+
+  - pip install "uvicorn[standard]"
+
+- add packages to requirements.txt
+  - pip freeze > requirements.txt
 
 ## how to run the app :
 
