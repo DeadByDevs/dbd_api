@@ -2,15 +2,30 @@ from typing import Union
 
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
 import fileHandler
 
 app = FastAPI()
 
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/")
 async def read_root():
     return {"DBD api": "OK"}
 
+@app.get("/healthcheck")
+async def read_root():
+     return {"status": "ok"}
+ 
 @app.get("/map")
 async def read_map():
     return fileHandler.getRandomMap('./assets/maps.json')
