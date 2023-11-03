@@ -34,3 +34,7 @@ uvicorn
   - source api-env/bin/activate
 - run app using uvicorn:
   - uvicorn main:app --reload
+
+## rust_assets
+
+- use git submodule update instead of git pull
