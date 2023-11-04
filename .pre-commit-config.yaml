@@ -13,8 +13,11 @@ repos:
 
   - repo: local
     hooks:
-      - id: pytest
-        stages: [pre-push]
-        name: pytest
-        entry: pytest -v
+      - id: pytest-check
+        stages: [push]
+        types: [python]
+        name: pytest-check
+        entry: python -m pytest -v
         language: system
+        pass_filenames: false
+        always_run: true
