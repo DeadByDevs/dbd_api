@@ -1,40 +1,24 @@
-# deadbydayapi
+# dbd_api
 
-## required library :
+## how to set up the environment:
 
-python-dotenv
-fastapi
-uvicorn
-
-## how to set up the environment :
-
-- create api-env
-
-  - python3 -m venv api-env
+- create env:
+  python3 -m venv env
 
 - activate virtual env:
+  source env/bin/activate
 
-  - source api-env/bin/activate
-
-- install in env
-
-  - pip install "uvicorn[standard]"
-
-- add packages to requirements.txt
-
-  - pip freeze > requirements.txt
-
-- install requirements
-
-  - pip install -r requirements.txt
-
-## how to run the app :
+- install requirements:
+  pip install -r requirements.txt
 
 - activate virtual env if not already in it:
-  - source api-env/bin/activate
-- run app using uvicorn:
-  - uvicorn main:app --reload
+  source env/bin/activate
 
-## rust_assets
+## how to run the app:
 
-- use git submodule update instead of git pull
+- uvicorn main:app --reload
+
+## submodules:
+
+- git submodule update --init --recursive
+  then use git submodule update instead of git pull
