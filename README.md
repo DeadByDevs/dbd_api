@@ -21,4 +21,3 @@
 ## submodules:
 
 - git submodule update --init --recursive
-  then use git submodule update instead of git pull

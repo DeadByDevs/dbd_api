@@ -1,0 +1,24 @@
+GET http://127.0.0.1:8000/map
+Content-Type: application/json
+
+###
+
+GET http://127.0.0.1:8000/perk/survivor/set
+Content-Type: application/json
+
+###
+
+GET http://127.0.0.1:8000/perk/survivor/single
+Content-Type: application/json
+
+###
+
+GET http://127.0.0.1:8000/perk/killer/set
+Content-Type: application/json
+
+###
+
+GET http://127.0.0.1:8000/perk/killer/single
+Content-Type: application/json
+
+###

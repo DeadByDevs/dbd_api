@@ -3,3 +3,4 @@ api-env
 *.pyc
 __pycache__
 .DS_store
+.pytest_cache
