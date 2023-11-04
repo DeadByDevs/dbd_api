@@ -1,14 +1,16 @@
-default_stages: [commit]
+default_stages: [commit, pre-push]
 repos:
   - repo: https://github.com/psf/black
     rev: 23.10.1
     hooks:
       - id: black
+        stages: [commit]
 
   - repo: https://github.com/PyCQA/flake8
     rev: 6.1.0
     hooks:
       - id: flake8
+        stages: [commit]
 
   - repo: local
     hooks:
