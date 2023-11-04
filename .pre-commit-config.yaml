@@ -4,7 +4,6 @@ repos:
     rev: 23.10.1
     hooks:
       - id: black
-        language_version: python3.11
 
   - repo: https://github.com/PyCQA/flake8
     rev: 6.1.0
@@ -14,10 +13,9 @@ repos:
   - repo: local
     hooks:
       - id: pytest
-        stages: [push]
-        types: [python]
+        stages: [commit, push]
         name: pytest
-        entry: python -m pytest -v
+        entry: pytest -v
         language: system
         pass_filenames: false
         always_run: true
