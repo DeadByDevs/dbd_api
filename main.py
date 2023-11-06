@@ -5,7 +5,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 import subprocess
 
-# import fileHandler
+import fileHandler
 import prettierJson
 
 app = FastAPI()
@@ -22,7 +22,7 @@ app.add_middleware(
 
 # cron // schedule task
 download_assets = "cd dbd_assets && cargo build && cargo run"
-copy_assets = "cp -r ./dbd_assets/assets/* ./assets/"
+copy_assets = "cp -rf ./dbd_assets/assets/* ./assets/"
 assets_dir = "./assets"
 
 
@@ -39,7 +39,7 @@ def call_dbd_assets():
         print("Error while copying DBD assets", e.output)
     try:
         print("Formatting JSON files...", datetime.now())
-        prettierJson.format_json_folder(assets_dir)
+        prettierJson.save_json(assets_dir)
     except Exception as e:
         print("Error while formatting JSON files", e.output)
 
@@ -47,6 +47,9 @@ def call_dbd_assets():
 @app.on_event("startup")
 async def startup_event():
     scheduler = BackgroundScheduler()
+    # download assets on startup
+    scheduler.add_job(call_dbd_assets, "date", run_date=datetime.now())
+    # download assets every week
     scheduler.add_job(call_dbd_assets, "interval", weeks=1)
     scheduler.start()
 
@@ -54,7 +57,7 @@ async def startup_event():
 # routes
 @app.get("/")
 async def read_root():
-    return {"DBD api": "OK"}
+    return {"status": "dbd_api online"}
 
 
 @app.get("/healthcheck")
@@ -62,9 +65,14 @@ async def healthcheck():
     return {"status": "ok"}
 
 
-# @app.get("/map")
-# async def read_map():
-#     return fileHandler.getRandomMap("./assets/maps.json")
+@app.get("/chapter")
+async def read_chapter():
+    return fileHandler.getRandomChapter("./assets/chapters.json")
+
+
+@app.get("/map")
+async def read_map():
+    return fileHandler.getRandomMap("./assets/maps.json")
 
 
 # @app.get("/perk/{characterType}/set")

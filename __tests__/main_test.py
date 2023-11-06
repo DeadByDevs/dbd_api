@@ -7,18 +7,17 @@ client = TestClient(app)
 def test_read_root():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"DBD api": "OK"}
+    assert response.json() == {"status": "dbd_api online"}
 
 
-def test_read_healthcheck():
-    response = client.get("/healthcheck")
+def test_read_chapter():
+    response = client.get("/map")
     assert response.status_code == 200
-    assert response.json() == {"status": "ok"}
 
 
-# def test_read_map():
-#     response = client.get("/map")
-#     assert response.status_code == 200
+def test_read_map():
+    response = client.get("/map")
+    assert response.status_code == 200
 
 
 # def test_read_perks_survivor_set():

@@ -2,24 +2,38 @@ import os
 import json
 
 
-def format_json_file(input_file_path):
-    try:
-        with open(input_file_path, "r") as input_file:
-            json_data = input_file.read()
-
-        parsed_data = json.loads(json_data)
-        formatted_json = json.dumps(parsed_data, indent=4)
-
-        with open(input_file_path, "w") as output_file:
-            output_file.write(formatted_json)
-
-        print(f"JSON data in '{input_file_path}' has been formatted and overwritten.")
-    except (json.JSONDecodeError, FileNotFoundError) as e:
-        print(f"Error: {e}")
+def parse_json(file_path, key):
+    with open(file_path, "r") as file:
+        data = json.load(file)
+        try:
+            edges = data["result"]["pageContext"]["postsData"][key]["edges"]
+        except Exception as e:
+            print(f"Error while parsing JSON file for {key}: {e}")
+            return None
+        return edges
 
 
-def format_json_folder(directory_path):
+def overwrite_json(data, file_path):
+    with open(file_path, "w") as output_file:
+        json.dump(data, output_file, indent=4)
+
+
+def save_json(directory_path):
+    valid_keys = ["chapters", "maps", "characters"]
+
     for filename in os.listdir(directory_path):
         if filename.endswith(".json"):
-            input_file_path = os.path.join(directory_path, filename)
-            format_json_file(input_file_path)
+            key = None
+            for valid_key in valid_keys:
+                if valid_key in filename:
+                    key = valid_key
+                    break
+
+            if key is not None:
+                try:
+                    file_path = os.path.join(directory_path, filename)
+                    edges = parse_json(file_path, key)
+                    if edges is not None:
+                        overwrite_json(edges, file_path)
+                except Exception as e:
+                    print(f"Error while parsing JSON folder for {key}: {e}")
