@@ -4,3 +4,4 @@ api-env
 __pycache__
 .DS_store
 .pytest_cache
+assets
