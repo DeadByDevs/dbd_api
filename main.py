@@ -6,6 +6,7 @@ from datetime import datetime
 import subprocess
 
 # import fileHandler
+import prettierJson
 
 app = FastAPI()
 
@@ -22,6 +23,7 @@ app.add_middleware(
 # cron // schedule task
 download_assets = "cd dbd_assets && cargo build && cargo run"
 copy_assets = "cp -r ./dbd_assets/assets/* ./assets/"
+assets_dir = "./assets"
 
 
 def call_dbd_assets():
@@ -35,12 +37,17 @@ def call_dbd_assets():
         subprocess.run(copy_assets, shell=True, check=True)
     except subprocess.CalledProcessError as e:
         print("Error while copying DBD assets", e.output)
+    try:
+        print("Formatting JSON files...", datetime.now())
+        prettierJson.format_json_folder(assets_dir)
+    except Exception as e:
+        print("Error while formatting JSON files", e.output)
 
 
 @app.on_event("startup")
 async def startup_event():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(call_dbd_assets, "interval", minutes=1)
+    scheduler.add_job(call_dbd_assets, "interval", weeks=1)
     scheduler.start()
 
 
