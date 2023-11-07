@@ -9,21 +9,18 @@ def getFileData(filePath):
 
 def getRandomChapter(filePath):
     data = getFileData(filePath)
-    return data[random.randint(0, len(data) - 1)]  # return random element
+    return random.choice(data)
 
 
 def getRandomMap(filePath):
     data = getFileData(filePath)
-    return data[random.randint(0, len(data) - 1)]  # return random element
+    return random.choice(data)
 
 
-# def getDataByType(filePath, characterType):
-#     data = getFileData(filePath)
-#     filteredData = []
-#     for item in data:
-#         if item["type"] == characterType:
-#             filteredData.append(item)
-#     return filteredData
+def getDataByRole(filePath, characterRole):
+    data = getFileData(filePath)
+    filteredData = [item for item in data if item["node"]["role"] == characterRole]
+    return random.choice(filteredData)
 
 
 # def randomElementFile(filePath, characterType="survivor"):

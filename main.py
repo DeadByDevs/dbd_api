@@ -60,11 +60,6 @@ async def read_root():
     return {"status": "dbd_api online"}
 
 
-@app.get("/healthcheck")
-async def healthcheck():
-    return {"status": "ok"}
-
-
 @app.get("/chapter")
 async def read_chapter():
     return fileHandler.getRandomChapter("./assets/chapters.json")
@@ -73,6 +68,16 @@ async def read_chapter():
 @app.get("/map")
 async def read_map():
     return fileHandler.getRandomMap("./assets/maps.json")
+
+
+@app.get("/{characterRole}")
+async def read_perk(characterRole):
+    if characterRole == "survivor":
+        return fileHandler.getDataByRole("./assets/characters.json", characterRole)
+    elif characterRole == "killer":
+        return fileHandler.getDataByRole("./assets/characters.json", characterRole)
+    else:
+        return "Error : Invalid character type"
 
 
 # @app.get("/perk/{characterType}/set")

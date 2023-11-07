@@ -11,12 +11,22 @@ def test_read_root():
 
 
 def test_read_chapter():
-    response = client.get("/map")
+    response = client.get("/chapter")
     assert response.status_code == 200
 
 
 def test_read_map():
     response = client.get("/map")
+    assert response.status_code == 200
+
+
+def test_read_survivor():
+    response = client.get("/survivor")
+    assert response.status_code == 200
+
+
+def test_read_killer():
+    response = client.get("/killer")
     assert response.status_code == 200
 
 
