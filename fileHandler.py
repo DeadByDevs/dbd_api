@@ -23,6 +23,12 @@ def getDataByRole(filePath, characterRole):
     return random.choice(filteredData)
 
 
+def getNameByRole(filePath, characterRole):
+    data = getFileData(filePath)
+    filteredData = [item for item in data if item["node"]["role"] == characterRole]
+    return random.choice(filteredData)["node"]["displayName"]
+
+
 # def randomElementFile(filePath, characterType="survivor"):
 #     data = getDataByType(filePath, characterType)
 #     return data[random.randint(0, len(data) - 1)]  # return random element
